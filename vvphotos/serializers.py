@@ -9,11 +9,13 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = read_only_fields = ["slug", "title", "parent", "image", "description", "photos"]
+        fields = read_only_fields = ["slug", "title", "image", "description", "url", "photos", 'children']
         depth = 1
-        
+
+
 class AlbumsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = read_only_fields = ["slug", "title", "parent", "image", "description"]
+        fields = read_only_fields = ["slug", "title", "parent", "image", "description", "url"]
+

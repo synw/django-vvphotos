@@ -18,7 +18,7 @@ class Command(BaseCommand):
         for album in albums:
             rest_url = reverse("vvphotos-album", kwargs={'slug':album.slug})
             url = "/photos/"+str(album.slug)+"/"
-            val = "page('"+url+"', function(ctx, next) { app.loadAlbum('"+rest_url+"') } );"
+            val = "page('"+url+"', function(ctx, next) { app.loadAlbum('"+rest_url+"', '"+album.title+"') } );"
             routes.append(val)
             print str(i)+": "+url
             i += 1

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save, post_delete
@@ -25,6 +24,7 @@ class Album(MPTTModel, BaseModel):
     image = models.ImageField(null=True, blank=True, upload_to='categories', verbose_name=_(u"Navigation image"))
     description = models.TextField(blank=True, verbose_name=_(u'Description'))
     status = models.CharField(max_length=20, verbose_name=_(u'Status'), choices=STATUSES, default=STATUSES[1][0])
+    url = models.URLField(verbose_name=_(u"Url"))
     
     class Meta:
         verbose_name=_(u'Album')
@@ -33,8 +33,15 @@ class Album(MPTTModel, BaseModel):
     def __unicode__(self):
         return unicode(self.title)
     
-    #def get_absolute_url(self):
-    #    return reverse("category-detail", kwargs={"slug":self.slug})
+    def get_absolute_url(self):
+        return "/photos/"+self.slug+"/"
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.url = self.get_absolute_url()
+        return super(Album, self).save(*args, **kwargs)
+    
+    
 
 
 class Photo(BaseModel):
