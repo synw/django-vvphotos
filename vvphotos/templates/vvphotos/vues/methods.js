@@ -25,3 +25,8 @@ loadAlbums: function(resturl) {
 	}
 	app.loadData(resturl, action);
 },
+getThumb: function(img) {
+	var url = img+".100x100_q85.jpg";
+	console.log("TH! "+url);
+	return url
+},

@@ -4,6 +4,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save, post_delete
 from mptt.models import TreeForeignKey, MPTTModel
+from easy_thumbnails.signals import saved_file
+from easy_thumbnails.signal_handlers import generate_aliases_global
 from vvphotos.conf import USER_MODEL, STATUSES
 from vvphotos.signals import build_albums
 
@@ -24,7 +26,7 @@ class Album(MPTTModel, BaseModel):
     image = models.ImageField(null=True, blank=True, upload_to='categories', verbose_name=_(u"Navigation image"))
     description = models.TextField(blank=True, verbose_name=_(u'Description'))
     status = models.CharField(max_length=20, verbose_name=_(u'Status'), choices=STATUSES, default=STATUSES[1][0])
-    url = models.URLField(verbose_name=_(u"Url"))
+    url = models.URLField(verbose_name=_(u"Url"), editable=False)
     
     class Meta:
         verbose_name=_(u'Album')
@@ -40,13 +42,11 @@ class Album(MPTTModel, BaseModel):
         if not self.pk:
             self.url = self.get_absolute_url()
         return super(Album, self).save(*args, **kwargs)
-    
-    
 
 
 class Photo(BaseModel):
     title = models.CharField(max_length=250, blank=True, verbose_name=_(u'Title'))
-    image = models.ImageField(upload_to='jssor', blank=False, verbose_name=_(u'Image'))
+    image = models.ImageField(upload_to='photos_thumbs', blank=False, verbose_name=_(u'Image'))
     album = models.ForeignKey(Album, related_name="photos", verbose_name=_(u'Album'))
     order = models.PositiveSmallIntegerField(null=True, verbose_name=_(u'Order'))
     
@@ -57,6 +57,8 @@ class Photo(BaseModel):
 
     def __unicode__(self):
         return unicode(self.title)
-    
+
+
 post_save.connect(build_albums, sender=Album)
 post_delete.connect(build_albums, sender=Album)
+saved_file.connect(generate_aliases_global)
