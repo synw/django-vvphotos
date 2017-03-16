@@ -1,24 +1,41 @@
-<style>
-.album {
-	margin:0.5em;
-	max-width:200px;
-}
-</style>
 {% verbatim %}
-<div style="text-align:center;width:100%;padding:1em">
+<div style="width:100%;padding:0;margin:0">
 	<template id="albums-template">
-		<ul class="list-inline">
-			<li v-for ="alb in albums" class="">
-				<a v-bind:href="alb.url">
-					<img v-bind:src="alb.image" v-bind:alt="alb.title" />
-				</a>
-			</li>
-		</ul>
+		<div v-bind:style="{ display: showAlbum }">
+			<div style="background-color:lightgrey;">
+				<div class="text-center hidden" style="font-size:140%;background-color:lightgrey;padding:1em 0 0 0;width:100%">
+					<div v-html="album.title"></div>
+				</div>
+				<div class="text-center" style="padding:1em">
+					<ul class="list-inline">
+						<li v-for ="alb in albums">
+							<a class="element" v-bind:href="alb.url">
+								<img v-bind:src="alb.image" v-bind:alt="alb.title" style=""/>
+							</a>
+							<div class="gi text-left xs-sm hidden-xs" style="width:210px; font-size:15px;vertical-align:middle">
+								<a v-bind:href="alb.url">
+									{{ alb.title }}
+								</a>
+							</div>
+										
+						</li>
+					</ul>
+				</div>
+			</div>		
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div v-html="album.description"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</template>
+
 	<template id="photo-template">
-		<div v-bind:style="{ display: showPhotos }">
+		<div class="text-center" v-bind:style="{ display: showPhotos }">
 			<div id="slider">
-			    <slider animation="normal" :speed="1000">
+			    <slider animation="normal" :speed="1000" :auto="false" :height="480" :control-btn="true">
 			      <slider-item v-for="photo in photos">
 			      	 <img :src="photo.image" alt="" />
 			      </slider-item>

@@ -2,7 +2,7 @@
 loadAlbum: function(resturl, album) {
 	function action(data) {
 		app.flush("albums");
-		app.activate(["albums", "photos"]);
+		app.activate(["albums", "photos", "album"]);
 		albums = data.children;
 		if (albums.length>0) {
 			console.log("ALBUMS mapping: "+albums);
@@ -11,6 +11,7 @@ loadAlbum: function(resturl, album) {
 			console.log("NO albums to map")
 		}
 		app.photos = data.photos;
+		app.album = data;
 		document.title = album;
 	}
 	app.loadData(resturl, action);

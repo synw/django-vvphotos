@@ -1,2 +1,3 @@
 albums: [],
 photos: [],
+album: {},
