@@ -1,5 +1,5 @@
 {% verbatim %}
-<div style="width:100%;padding:0;margin:0">
+<div style="width:100%;padding:0;margin:0;" v-bind:style="{ display: showAlbums }">
 	<template id="albums-template">
 		<div v-bind:style="{ display: showAlbum }">
 			<div style="background-color:lightgrey;">
@@ -35,12 +35,10 @@
 	<template id="photo-template">
 		<div class="text-center" v-bind:style="{ display: showPhotos }">
 			<div id="slider">
-			    <slider animation="normal" :speed="1000" :auto="false" :height="480" :control-btn="true">
-			      <slider-item v-for="photo in photos">
-			      	 <img :src="photo.image" alt="" />
-			      </slider-item>
-			    </slider>
+				<img v-bind:src="imgSrc" style="max-width:100%">
 			</div>
+			<button v-on:click="prev()">Prev</button>
+			<button v-on:click="next()">Next</button>
 		</div>
 	</template>
 </div>
