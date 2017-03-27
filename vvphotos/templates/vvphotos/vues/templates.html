@@ -1,16 +1,14 @@
+{% load staticfiles %}
 {% verbatim %}
 <div style="width:100%;padding:0;margin:0;" v-bind:style="{ display: showAlbums }">
 	<template id="albums-template">
 		<div v-bind:style="{ display: showAlbum }">
 			<div style="background-color:lightgrey;">
-				<div class="text-center hidden" style="font-size:140%;background-color:lightgrey;padding:1em 0 0 0;width:100%">
-					<div v-html="album.title"></div>
-				</div>
 				<div class="text-center" style="padding:1em">
 					<ul class="list-inline">
 						<li v-for ="alb in albums">
 							<a class="element" v-bind:href="alb.url">
-								<img v-bind:src="alb.image" v-bind:alt="alb.title" style=""/>
+								<img v-bind:src="alb.image" v-bind:alt="alb.title" />
 							</a>
 							<div class="gi text-left xs-sm hidden-xs" style="width:210px; font-size:15px;vertical-align:middle">
 								<a v-bind:href="alb.url">
@@ -33,13 +31,55 @@
 	</template>
 
 	<template id="photo-template">
+		<style>
+			#btn_prev,#btn_next {
+				position:absolute;
+				top: 0px;
+				font-weight:bold;
+				background-color:rgba(0,0,0,0);
+				border:1px solid rgba(0,0,0,0);
+				border-radius:5px;
+				color:white;
+				height:100%;
+				width:100px;
+			}
+			#btn_prev img, #btn_next img{
+				height:100%;
+				width:100%;
+			}
+			#btn_prev {
+				left:15px;
+				border: 2px dashed red;
+			}
+			#prev ,#next {
+				display:none;
+			}
+			#btn_next {
+				right:15px;
+			}
+			.gi{
+				display:inline-block;
+			}
+			.active {
+				background-color:rgba(0,0,0,0.3);
+			}
+			</style>
 		<div class="text-center" v-bind:style="{ display: showPhotos }">
 			<div id="slider">
-				<img v-bind:src="imgSrc" style="max-width:100%">
+				<img v-bind:src="imgSrc" style="max-width:100%;">
 			</div>
-			<button v-on:click="prev()">Prev</button>
-			<button v-on:click="next()">Next</button>
+			<div id="btn_control" class="hidden-xs"> 
+				<button id="btn_prev" class="center-block" v-on:click="prev()">
+					{% endverbatim %}
+					<img id="prev" class="center-block" src="{% static 'vvphotos/img/prev.png' %}" alt=""/>
+					{% verbatim %}
+				</button>
+				<button id="btn_next" class="center-block" v-on:click="next()">
+					{% endverbatim %}
+					<img id="next" class="center-block" src="{% static 'vvphotos/img/next.png' %}" alt=""/>
+				</button>
+			</div>
 		</div>
 	</template>
 </div>
-{% endverbatim %}
+
