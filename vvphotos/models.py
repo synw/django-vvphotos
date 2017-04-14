@@ -21,7 +21,7 @@ class BaseModel(models.Model):
 
 class Album(MPTTModel, BaseModel):
     slug = models.SlugField(max_length=25, unique=True)
-    title = models.CharField(max_length=255, verbose_name=_(u'Title'))
+    title = models.CharField(max_length=255, blank=True, verbose_name=_(u'Title'))
     parent = TreeForeignKey('self', null=True, blank=True, related_name=u'children', verbose_name=_(u'Parent category'))
     image = models.ImageField(null=True, blank=True, upload_to='categories', verbose_name=_(u"Navigation image"))
     description = models.TextField(blank=True, verbose_name=_(u'Description'))
@@ -32,8 +32,8 @@ class Album(MPTTModel, BaseModel):
         verbose_name=_(u'Album')
         verbose_name_plural = _(u'Albums')
 
-    def __unicode__(self):
-        return unicode(self.title)
+    def __str__(self):
+        return self.title
     
     def get_absolute_url(self):
         return "/photos/"+self.slug+"/"
@@ -55,8 +55,8 @@ class Photo(BaseModel):
         verbose_name = _(u'Photo')
         verbose_name_plural = _(u'Photos')
 
-    def __unicode__(self):
-        return unicode(self.title)
+    def __str__(self):
+        return self.image.url
 
 
 post_save.connect(build_albums, sender=Album)
