@@ -32,3 +32,14 @@ mc.on("swipeleft", function(ev) {
 mc.on("swiperight", function(ev) {
 	app.next();
 });
+document.onkeydown = function(evt) {
+    var evt = evt || window.event;
+    switch (evt.keyCode) {
+        case 37:
+        	app.prev();
+            break;
+        case 39:
+        	app.next();
+            break;
+    }
+};
