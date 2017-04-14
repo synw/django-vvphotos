@@ -9,6 +9,7 @@ function show_control_prev() {
 		prev.style.display="none";
 	});
 }
+show_control_prev();
 		
 function show_control_next() {
 	var btn_next = document.getElementById("btn_next")
@@ -21,3 +22,13 @@ function show_control_next() {
 		next.style.display="none";
 	});
 }
+show_control_next();
+
+var slider = document.getElementById('slider');
+var mc = new Hammer(slider);
+mc.on("swipeleft", function(ev) {
+    app.prev();
+});
+mc.on("swiperight", function(ev) {
+	app.next();
+});
