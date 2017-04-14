@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% verbatim %}
-<div style="width:100%;padding:0;margin:0;display:none" v-show="albums">
-	<div v-show="album">
+<div style="width:100%;padding:0;margin:0;display:none" v-show="showAlbums">
+	<div style="display:none" v-show="showAlbum">
 		<div style="background-color:lightgrey;">
 			<div class="text-center" style="padding:1em">
 				<ul class="list-inline">
@@ -60,7 +60,7 @@
 			background-color:rgba(0,0,0,0.3);
 		}
 		</style>
-	<div class="text-center" v-show="photos">
+	<div class="text-center" style="display:none" v-show="showPhotos">
 		<div id="slider">
 			<img v-bind:src="imgSrc" style="max-width:100%;">
 		</div>

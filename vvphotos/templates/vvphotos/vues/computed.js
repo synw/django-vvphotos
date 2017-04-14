@@ -1,44 +1,20 @@
-showPhotos: {
-	get: function () {
-		if (this.photos.length === 0) {
-			return "none"
-		}
-		return "block"
-	},
-	set: function (newValue) {
-		if (this.photos.length === 0) {
-			return "none"
-		}
-		return "block"
+showPhotos: function () {
+	if (this.photos.length === 0) {
+		return false
 	}
+	return true
 },
-showAlbums: {
-	get: function () {
-		if (this.isActive("albums") === false) {
-			return "none"
-		}
-		return "block"
-	},
-	set: function (newValue) {
-		if (this.isActive("albums") === false) {
-			return "none"
-		}
-		return "block"
+showAlbums: function() {
+	if (this.isActive("albums") === false) {
+		return false
 	}
+	return true
 },
-showAlbum: {
-	get: function () {
-		if (Object.keys(this.album).length === 0){
-			return "none"
-		}
-		return "block"
-	},
-	set: function (newValue) {
-		if (Object.keys(this.album).length === 0) {
-			return "none"
-		}
-		return "block"
+showAlbum: function (newValue) {
+	if (Object.keys(this.album).length === 0) {
+		return false
 	}
+	return true
 },
 imgSrc: {
 	get: function () {
