@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% verbatim %}
-<div style="width:100%;padding:0;margin:0;" v-show="albums">
-	<div v-show="album">
+<div style="width:100%;padding:0;margin:0;" v-if="(albums.length>0)">
+	<div v-if="(album!=={})">
 		<div style="background-color:lightgrey;">
 			<div class="text-center" style="padding:1em">
 				<ul class="list-inline">
@@ -60,21 +60,19 @@
 			background-color:rgba(0,0,0,0.3);
 		}
 		</style>
-	<div class="text-center" v-show="photos">
+	<div class="text-center" v-if="(photos.length>0)">
 		<div id="slider">
 			<img v-bind:src="imgSrc" style="max-width:100%;">
 		</div>
 		<div id="btn_control" class="hidden-xs"> 
 			<button id="btn_prev" class="center-block" v-on:click="prev()">
-				{% endverbatim %}
+				
 				<img id="prev" class="center-block" src="{% static 'vvphotos/img/prev.png' %}" alt=""/>
-				{% verbatim %}
 			</button>
 			<button id="btn_next" class="center-block" v-on:click="next()">
-				{% endverbatim %}
 				<img id="next" class="center-block" src="{% static 'vvphotos/img/next.png' %}" alt=""/>
 			</button>
 		</div>
 	</div>
 </div>
-
+{% endverbatim %}

@@ -16,6 +16,7 @@ loadAlbum: function(resturl, album) {
 		app.currentImg = 0;
 	}
 	this.loadData(resturl, action);
+	this.get_slider();
 },
 loadAlbums: function(resturl) {
 	function action(data) {
@@ -27,6 +28,8 @@ loadAlbums: function(resturl) {
 		app.album = app.albums[0];
 	}
 	this.loadData(resturl, action);
+	show_control_prev();
+	show_control_next();
 },
 getThumb: function(img) {
 	var url = img+".100x100_q85.jpg";
@@ -50,4 +53,25 @@ prev: function() {
 		this.currentImg = (total-1)
 	}
 	this.imgSrc = this.photos[this.currentImg]
+},
+get_slider: function() {
+	var slider = this.slider;
+	var mc = new Hammer(slider);
+	mc.on("swipeleft", function(ev) {
+	    app.prev();
+	});
+	mc.on("swiperight", function(ev) {
+		app.next();
+	});
+	document.onkeydown = function(evt) {
+	    var evt = evt || window.event;
+	    switch (evt.keyCode) {
+	        case 37:
+	        	app.prev();
+	            break;
+	        case 39:
+	        	app.next();
+	            break;
+	    }
+	};
 },
