@@ -27,52 +27,21 @@
 			</div>
 		</div>
 	</div>
-	<style>
-		#btn_prev,#btn_next {
-			position:absolute;
-			top: 0px;
-			font-weight:bold;
-			background-color:rgba(0,0,0,0);
-			border:1px solid rgba(0,0,0,0);
-			border-radius:5px;
-			color:white;
-			height:100%;
-			width:100px;
-		}
-		#btn_prev img, #btn_next img{
-			height:100%;
-			width:100%;
-		}
-		#btn_prev {
-			left:15px;
-			border: 2px dashed red;
-		}
-		#prev ,#next {
-			display:none;
-		}
-		#btn_next {
-			right:15px;
-		}
-		.gi{
-			display:inline-block;
-		}
-		.active {
-			background-color:rgba(0,0,0,0.3);
-		}
-		</style>
 	<div class="text-center" style="display:none" v-show="isActive('photos')">
+		<div class="hidden-xs"> 
+			<button id="btn_prev" v-on:click="prev()">
+				{% endverbatim %}
+				<img id="prev" src="{% static 'vvphotos/img/prev.png' %}" style="max-height:100%;" alt=""/>
+				{% verbatim %}
+			</button>
+		</div>
 		<div id="slider">
 			<img v-bind:src="imgSrc" style="max-width:100%;">
 		</div>
-		<div id="btn_control" class="hidden-xs"> 
-			<button id="btn_prev" class="center-block" v-on:click="prev()">
+		<div class="hidden-xs"> 
+			<button id="btn_next" v-on:click="next()">
 				{% endverbatim %}
-				<img id="prev" class="center-block" src="{% static 'vvphotos/img/prev.png' %}" alt=""/>
-				{% verbatim %}
-			</button>
-			<button id="btn_next" class="center-block" v-on:click="next()">
-				{% endverbatim %}
-				<img id="next" class="center-block" src="{% static 'vvphotos/img/next.png' %}" alt=""/>
+				<img id="next" src="{% static 'vvphotos/img/next.png' %}" style="max-height:100%;" alt=""/>
 			</button>
 		</div>
 	</div>

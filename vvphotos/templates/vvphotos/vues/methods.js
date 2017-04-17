@@ -12,7 +12,7 @@ loadAlbum: function(resturl, album) {
 		for (i=0;i<data.photos.length;i++) {
 			data.photos[i].image = app.getImage(data.photos[i].image);
 		}
-		console.log("PHOTOS:", app.str(data.photos));
+		//console.log("PHOTOS:", app.str(data.photos));
 		app.flush("albums");
 		app.pushActivate(["albums", "photos", "album"]);
 		app.photos = data.photos;
@@ -24,7 +24,7 @@ loadAlbum: function(resturl, album) {
 },
 loadAlbums: function(resturl) {
 	function action(data) {
-		console.log("ALBUMS DATA", JSON.stringify(data));
+		//console.log("ALBUMS DATA", JSON.stringify(data));
 		app.flush("albums");
 		app.albums = data;
 		app.activate(["albums", "album"]);
@@ -33,9 +33,33 @@ loadAlbums: function(resturl) {
 	}
 	this.loadData(resturl, action);
 },
-getImage: function(img) {
-	var url = "/media/"+img;
+getImage: function(imgurl) {
+	var width = this.getScreenWidth();
+	var thumb = true;
+	if (width < 361) {
+		imgurl = imgurl.replace(".jpg", "_thumbnail.jpg");
+	} else if (width > 360 && width < 641) {
+		imgurl = imgurl.replace(".jpg", "_small.jpg");
+	} else if (width > 640 && width < 801) {
+		imgurl = imgurl.replace(".jpg", "_medium.jpg");
+	} else if (width > 800 && width < 1201) {
+		imgurl = imgurl.replace(".jpg", "_big.jpg");
+	} else if (width > 1200) {
+		thumb = false;
+	}
+	if (thumb === true) {
+		imgurl = imgurl.replace("uploads", "_versions");
+	}
+ 	var url = "/media/"+imgurl;
 	return url
+},
+getScreenWidth: function() {
+	var w = window;
+	var d = document;
+	var e = d.documentElement;
+	var g = document.body;
+	var x = w.innerWidth || e.clientWidth || g.clientWidth;
+	return x
 },
 next: function() {
 	var total = this.photos.length;

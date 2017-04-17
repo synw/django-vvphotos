@@ -45,7 +45,7 @@ class Album(MPTTModel, BaseModel):
 
 class Photo(BaseModel):
     title = models.CharField(max_length=250, blank=True, verbose_name=_(u'Title'))
-    image = FileBrowseField("Image", max_length=200, directory="photos_thumbs/", extensions=[".jpg", "png"], null=True)
+    image = FileBrowseField("Image", max_length=200, extensions=[".jpg", "png"], null=True)
     album = models.ForeignKey(Album, related_name="photos", verbose_name=_(u'Album'))
     order = models.PositiveSmallIntegerField(null=True, verbose_name=_(u'Order'))
     
