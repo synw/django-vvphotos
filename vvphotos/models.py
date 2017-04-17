@@ -4,8 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save, post_delete
 from mptt.models import TreeForeignKey, MPTTModel
-from easy_thumbnails.signals import saved_file
-from easy_thumbnails.signal_handlers import generate_aliases_global
+from filebrowser.fields import FileBrowseField
 from vvphotos.conf import USER_MODEL, STATUSES
 from vvphotos.signals import build_albums
 
@@ -46,7 +45,7 @@ class Album(MPTTModel, BaseModel):
 
 class Photo(BaseModel):
     title = models.CharField(max_length=250, blank=True, verbose_name=_(u'Title'))
-    image = models.ImageField(upload_to='photos_thumbs', blank=False, verbose_name=_(u'Image'))
+    image = FileBrowseField("Image", max_length=200, directory="photos_thumbs/", extensions=[".jpg", "png"], null=True)
     album = models.ForeignKey(Album, related_name="photos", verbose_name=_(u'Album'))
     order = models.PositiveSmallIntegerField(null=True, verbose_name=_(u'Order'))
     
@@ -61,4 +60,3 @@ class Photo(BaseModel):
 
 post_save.connect(build_albums, sender=Album)
 post_delete.connect(build_albums, sender=Album)
-saved_file.connect(generate_aliases_global)
