@@ -19,6 +19,7 @@ loadAlbum: function(resturl, album) {
 		app.album = data;
 		document.title = album;
 		app.currentImg = 0;
+		app.imgHeight = document.getElementById("slider-img").height;
 	}
 	this.loadData(resturl, action);
 },
@@ -68,7 +69,6 @@ next: function() {
 	} else if (this.currentImg < (total-1)){
 		this.currentImg++
 	}
-	//this.imgSrc = this.photos[this.currentImg]
 },
 prev: function() {
 	var total = this.photos.length; 
@@ -77,7 +77,6 @@ prev: function() {
 	} else if (this.currentImg == 0){
 		this.currentImg = (total-1)
 	}
-	//this.imgSrc = this.photos[this.currentImg]
 },
 fs: function() {
 	requestFullScreen(document.body);

@@ -27,23 +27,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="text-center" style="display:none" v-show="isActive('photos')">
-		<div class="hidden-xs"> 
-			<button id="btn_prev" v-on:click="prev()">
-				{% endverbatim %}
-				<img id="prev" src="{% static 'vvphotos/img/prev.png' %}" style="max-height:100%;" alt=""/>
-				{% verbatim %}
-			</button>
-		</div>
+	<div class="text-center" style="display:none;position:relative;top:-1px" v-show="isActive('photos')">
 		<div id="slider">
-			<img v-bind:src="imgSrc" style="max-width:100%;" @click="fs" />
-		</div>
-		<div class="hidden-xs"> 
-			<button id="btn_next" v-on:click="next()">
-				{% endverbatim %}
-				<img id="next" src="{% static 'vvphotos/img/next.png' %}" style="max-height:100%;" alt=""/>
-			</button>
+			<img id="slider-img" v-bind:src="imgSrc" style="width:100%;max-width:100%;position:relative;top:-{{imgHeight}}px" @click="fs" />
 		</div>
 	</div>
 </div>
+{% endverbatim %}
 
