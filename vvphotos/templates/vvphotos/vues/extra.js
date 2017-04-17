@@ -1,3 +1,17 @@
+function requestFullScreen(element) {
+    // Supports most browsers and their versions.
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+    if (requestMethod) { // Native full screen.
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+
 function show_control_prev() {
 	var btn_prev = document.getElementById("btn_prev")
 	var prev = document.getElementById("prev");
@@ -43,3 +57,13 @@ document.onkeydown = function(evt) {
             break;
     }
 };
+function onFullScreenChange() {
+  var fullscreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+  if (fullscreen === undefined) {
+	  app.showHeader = true;
+  }
+}
+document.addEventListener("fullscreenchange", onFullScreenChange, false);
+document.addEventListener("webkitfullscreenchange", onFullScreenChange, false);
+document.addEventListener("mozfullscreenchange", onFullScreenChange, false);
+

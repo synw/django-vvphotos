@@ -79,3 +79,7 @@ prev: function() {
 	}
 	//this.imgSrc = this.photos[this.currentImg]
 },
+fs: function() {
+	requestFullScreen(document.body);
+	this.showHeader = false;
+},

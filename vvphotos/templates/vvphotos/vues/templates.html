@@ -36,7 +36,7 @@
 			</button>
 		</div>
 		<div id="slider">
-			<img v-bind:src="imgSrc" style="max-width:100%;">
+			<img v-bind:src="imgSrc" style="max-width:100%;" @click="fs" />
 		</div>
 		<div class="hidden-xs"> 
 			<button id="btn_next" v-on:click="next()">
