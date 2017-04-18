@@ -14,12 +14,13 @@ loadAlbum: function(resturl, album) {
 		}
 		//console.log("PHOTOS:", app.str(data.photos));
 		app.flush("albums");
-		app.pushActivate(["albums", "photos", "album"]);
+		app.activate(["albums", "photos", "album"]);
 		app.photos = data.photos;
 		app.album = data;
 		document.title = album;
 		app.currentImg = 0;
 		app.imgHeight = document.getElementById("slider-img").height;
+		console.log(document.getElementById("slider-img"), "HEIGHT:", app.imgHeight);
 	}
 	this.loadData(resturl, action);
 },
@@ -61,6 +62,14 @@ getScreenWidth: function() {
 	var g = document.body;
 	var x = w.innerWidth || e.clientWidth || g.clientWidth;
 	return x
+},
+showPhotoBtn: function() {
+	document.getElementById("btn-next").style.display = "block";
+	document.getElementById("btn-prev").style.display = "block";
+},
+hidePhotoBtn: function() {
+	document.getElementById("btn-next").style.display = "none";
+	document.getElementById("btn-prev").style.display = "none";
 },
 next: function() {
 	var total = this.photos.length;
