@@ -19,8 +19,6 @@ loadAlbum: function(resturl, album) {
 		app.album = data;
 		document.title = album;
 		app.currentImg = 0;
-		app.imgHeight = document.getElementById("slider-img").height;
-		console.log(document.getElementById("slider-img"), "HEIGHT:", app.imgHeight);
 	}
 	this.loadData(resturl, action);
 },
