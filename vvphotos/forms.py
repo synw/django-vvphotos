@@ -11,4 +11,20 @@ class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album
         fields = ['title', 'slug', 'parent', 'image', 'status', 'editor']
-        widgets = {'status': forms.RadioSelect, 'description': CKEditorUploadingWidget(config_name='default')}
+        widgets = {'status': forms.RadioSelect, 'description': CodeMirrorEditor(options={
+                                     'mode':'htmlmixed',
+                                     'width':'1170px',
+                                     'indentWithTabs':'true', 
+                                     #'indentUnit' : '4',
+                                     'lineNumbers':'true',
+                                     'autofocus':'true',
+                                     #'highlightSelectionMatches': '{showToken: /\w/, annotateScrollbar: true}',
+                                     'styleActiveLine': 'true',
+                                     'autoCloseTags': 'true',
+                                     'theme':'blackboard',
+                                     #'fullScreen':'true',
+                                     },
+                                     script_template='codemirror2/codemirror_script_vvpages.html',
+                                     modes=['css', 'xml', 'javascript', 'htmlmixed'],
+                                     )
+                    }

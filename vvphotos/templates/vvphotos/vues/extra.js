@@ -30,6 +30,7 @@ document.onkeydown = function(evt) {
 };
 function onFullScreenChange() {
   var fullscreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+  console.log("FS", fullscreen);
   if (fullscreen === undefined) {
 	  app.showHeader = true;
   }

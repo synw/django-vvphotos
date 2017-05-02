@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n  %}
 loadAlbum: function(resturl, album) {
 	function action(data) {
 		albums = data.children;
@@ -14,10 +14,14 @@ loadAlbum: function(resturl, album) {
 		}
 		//console.log("PHOTOS:", app.str(data.photos));
 		app.flush("albums");
-		app.activate(["albums", "photos", "album"]);
 		app.photos = data.photos;
 		app.album = data;
 		document.title = album;
+		if ( data.photos.length > 0 ) {
+			app.activate(["arrows", "albums", "photos", "album"])
+		} else {
+			app.activate(["albums", "photos", "album"]);
+		}
 		app.currentImg = 0;
 	}
 	this.loadData(resturl, action);
@@ -35,21 +39,20 @@ loadAlbums: function(resturl) {
 },
 getImage: function(imgurl) {
 	var width = this.getScreenWidth();
-	var thumb = true;
 	if (width < 361) {
 		imgurl = imgurl.replace(".jpg", "_thumbnail.jpg");
 	} else if (width > 360 && width < 641) {
 		imgurl = imgurl.replace(".jpg", "_small.jpg");
 	} else if (width > 640 && width < 801) {
 		imgurl = imgurl.replace(".jpg", "_medium.jpg");
-	} else if (width > 800 && width < 1201) {
+	} else if (width > 800 && width < 1301) {
 		imgurl = imgurl.replace(".jpg", "_big.jpg");
-	} else if (width > 1200) {
-		thumb = false;
+	} else if (width > 1300) {
+		imgurl = imgurl.replace(".jpg", "_large.jpg");
 	}
-	if (thumb === true) {
 		imgurl = imgurl.replace("uploads", "_versions");
-	}
+	console.log(imgurl);
+	
  	var url = "/media/"+imgurl;
 	return url
 },
@@ -61,14 +64,6 @@ getScreenWidth: function() {
 	var x = w.innerWidth || e.clientWidth || g.clientWidth;
 	return x
 },
-showPhotoBtn: function() {
-	document.getElementById("btn-next").style.display = "block";
-	document.getElementById("btn-prev").style.display = "block";
-},
-hidePhotoBtn: function() {
-	document.getElementById("btn-next").style.display = "none";
-	document.getElementById("btn-prev").style.display = "none";
-},
 next: function() {
 	var total = this.photos.length;
 	if (this.currentImg == (total-1)) {
@@ -76,6 +71,7 @@ next: function() {
 	} else if (this.currentImg < (total-1)){
 		this.currentImg++
 	}
+	console.log("INDEX", this.currentImg);
 },
 prev: function() {
 	var total = this.photos.length; 
@@ -84,6 +80,14 @@ prev: function() {
 	} else if (this.currentImg == 0){
 		this.currentImg = (total-1)
 	}
+},
+showPhotoBtn: function() {
+	document.getElementById("btn-next").style.display = "block";
+	document.getElementById("btn-prev").style.display = "block";
+},
+hidePhotoBtn: function() {
+	document.getElementById("btn-next").style.display = "none";
+	document.getElementById("btn-prev").style.display = "none";
 },
 fs: function() {
 	requestFullScreen(document.body);
